@@ -38,18 +38,18 @@ if (!Object.prototype.hasOwnProperty)
 	Object.prototype.hasOwnProperty = function(prop) {
 		var proto = this.__proto__ || this.constructor.prototype;
 		return (prop in this) && (!(prop in proto) || proto[prop] !== this[prop]);
-	}
+	};
 
 function text_size(width, height, template) {
 	height = parseInt(height,10);
 	width = parseInt(width,10);
-	var bigSide = Math.max(height, width)
-	var smallSide = Math.min(height, width)
+	var bigSide = Math.max(height, width);
+	var smallSide = Math.min(height, width);
 	var scale = 1 / 12;
 	var newHeight = Math.min(smallSide * 0.75, 0.75 * bigSide * scale);
 	return {
 		height: Math.round(Math.max(template.size, newHeight))
-	}
+	};
 }
 
 function draw(ctx, dimensions, template, ratio) {
@@ -109,14 +109,14 @@ function render(mode, el, holder, src) {
 		el.setAttribute("data-src", src);
 		el.setAttribute("alt", text ? text : theme.text ? theme.text + " [" + dimensions_caption + "]" : dimensions_caption);
 		if (dimensions.height.substr(-1) == "%") {
-			el.style.height = dimensions.height
+			el.style.height = dimensions.height;
 		} else {
-			el.style.height = dimensions.height + "px"
+			el.style.height = dimensions.height + "px";
 		}
 		if (dimensions.width.substr(-1) == "%") {
-			el.style.width = dimensions.width
+			el.style.width = dimensions.width;
 		} else {
-			el.style.width = dimensions.width + "px"
+			el.style.width = dimensions.width + "px";
 		}
 		if (el.style.display == "inline" || el.style.display == "") {
 			el.style.display = "block";
@@ -136,10 +136,10 @@ function fluid_update(element) {
 	if (element.nodeType == null) {
 		images = fluid_images;
 	} else {
-		images = [element]
+		images = [element];
 	}
 	for (i in images) {
-		var el = images[i]
+		var el = images[i];
 		if (el.holderData) {
 			var holder = el.holderData;
 			el.setAttribute("src", draw(ctx, {
@@ -241,7 +241,7 @@ app.flags = {
 			return {
 				width: +exec[1],
 				height: +exec[2]
-			}
+			};
 		}
 	},
 	fluid: {
@@ -251,7 +251,7 @@ app.flags = {
 			return {
 				width: exec[1],
 				height: exec[2]
-			}
+			};
 		}
 	},
 	colors: {
@@ -262,7 +262,7 @@ app.flags = {
 				size: settings.themes.gray.size,
 				foreground: "#" + exec[2],
 				background: "#" + exec[1]
-			}
+			};
 		}
 	},
 	text: {
@@ -280,13 +280,13 @@ app.flags = {
 	auto: {
 		regex: /^auto$/
 	}
-}
+};
 
 for (var flag in app.flags) {
 	if (!app.flags.hasOwnProperty(flag)) continue;
 	app.flags[flag].match = function (val) {
-		return val.match(this.regex)
-	}
+		return val.match(this.regex);
+	};
 }
 
 app.add_theme = function (name, theme) {
@@ -298,7 +298,7 @@ app.add_image = function (src, el) {
 	var node = selector(el);
 	if (node.length) {
 		for (var i = 0, l = node.length; i < l; i++) {
-			var img = document.createElement("img")
+			var img = document.createElement("img");
 			img.setAttribute("data-src", src);
 			node[i].appendChild(img);
 		}
@@ -390,7 +390,7 @@ app.run = function (o) {
 				.split("/"), options);
 			if (holder) {
 				if (holder.fluid) {
-					render("fluid", images[i], holder, src)
+					render("fluid", images[i], holder, src);
 				} else {
 					render("image", images[i], holder, src);
 				}
@@ -405,7 +405,7 @@ contentLoaded(win, function () {
 		window.addEventListener("resize", fluid_update, false);
 		window.addEventListener("orientationchange", fluid_update, false);
 	} else {
-		window.attachEvent("onresize", fluid_update)
+		window.attachEvent("onresize", fluid_update);
 	}
 	preempted || app.run();
 });

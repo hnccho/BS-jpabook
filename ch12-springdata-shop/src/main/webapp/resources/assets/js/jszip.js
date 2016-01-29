@@ -107,7 +107,7 @@ JSZip.prototype = (function () {
          return file.asBinary();
       }
       return result;
-   }
+   };
 
    /**
     * Transform this._data into a string.
@@ -345,7 +345,7 @@ JSZip.prototype = (function () {
          } else if (file._data.compressionMethod === compression.magic) {
             result.compressedContent = file._data.getCompressedContent();
          } else {
-            content = file._data.getContent()
+            content = file._data.getContent();
             // need to decompress / recompress
             result.compressedContent = compression.compress(JSZip.utils.transformTo(compression.compressInputType, content));
          }
