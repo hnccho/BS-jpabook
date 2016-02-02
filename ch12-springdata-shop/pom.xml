@@ -202,6 +202,7 @@
 				<version>2.2</version>
 				<configuration>
 					<path>/</path>
+	        		<port>6060</port>
 					<uriEncoding>UTF-8</uriEncoding>
 				</configuration>
 			</plugin>

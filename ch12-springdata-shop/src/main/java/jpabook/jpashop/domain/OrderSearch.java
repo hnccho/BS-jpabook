@@ -2,6 +2,7 @@ package jpabook.jpashop.domain;
 
 import org.springframework.data.jpa.domain.Specifications;
 
+import static jpabook.jpashop.domain.OrderSpec.searchLike;
 import static jpabook.jpashop.domain.OrderSpec.memberNameLike;
 import static jpabook.jpashop.domain.OrderSpec.orderStatusEq;
 import static org.springframework.data.jpa.domain.Specifications.where;
@@ -11,10 +12,28 @@ import static org.springframework.data.jpa.domain.Specifications.where;
  */
 public class OrderSearch {
 
+    private String searchField;      //검색필드
+    private String searchValue;      //검색값
     private String memberName;      //회원 이름
     private OrderStatus orderStatus;//주문 상태
 
-    public String getMemberName() {
+	public String getSearchField() {
+		return searchField;
+	}
+
+	public void setSearchField(String searchField) {
+		this.searchField = searchField;
+	}
+
+	public String getSearchValue() {
+		return searchValue;
+	}
+
+	public void setSearchValue(String searchValue) {
+		this.searchValue = searchValue;
+	}
+
+	public String getMemberName() {
         return memberName;
     }
 
@@ -32,6 +51,11 @@ public class OrderSearch {
 
     public Specifications<Order> toSpecification() {
         return where(memberNameLike(memberName))
+                .and(orderStatusEq(orderStatus));
+    }
+
+    public Specifications<Order> toSpecification2() {
+        return where(searchLike(searchField, searchValue))
                 .and(orderStatusEq(orderStatus));
     }
 

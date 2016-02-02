@@ -7,6 +7,18 @@ import javax.persistence.criteria.*;
 
 public class OrderSpec {
 
+    public static Specification<Order> searchLike(final String fieldName, final String fieldValue) {
+        return new Specification<Order>() {
+            public Predicate toPredicate(Root<Order> root, CriteriaQuery<?> query, CriteriaBuilder builder) {
+
+                if (StringUtils.isEmpty(fieldValue)) return null;
+
+                Join<Order, Member> m = root.join("member", JoinType.INNER); //회원과 조인
+                return builder.like(m.<String>get(fieldName), "%" + fieldValue + "%");
+            }
+        };
+    }
+    
     public static Specification<Order> memberNameLike(final String memberName) {
         return new Specification<Order>() {
             public Predicate toPredicate(Root<Order> root, CriteriaQuery<?> query, CriteriaBuilder builder) {
