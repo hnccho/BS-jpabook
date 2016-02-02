@@ -60,8 +60,8 @@ public class OrderService {
      * 주문 검색
      */
     public List<Order> findOrders(OrderSearch orderSearch) {
-    	return orderRepository.findAll(orderSearch.toSpecification2()); // Specification 사용
-//    	return orderRepository.findAll(orderSearch.toSpecification()); // Specification 사용
+    	return orderRepository.findAll(orderSearch.withSearchField()); // Specification 사용
+//    	return orderRepository.findAll(orderSearch.withMemberName()); // Specification 사용
 //		return orderRepository.search(orderSearch);  //QueryDSL 사용
     }
 

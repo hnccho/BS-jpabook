@@ -49,12 +49,12 @@ public class OrderSearch {
         this.orderStatus = orderStatus;
     }
 
-    public Specifications<Order> toSpecification() {
+    public Specifications<Order> withMemberName() {
         return where(memberNameLike(memberName))
                 .and(orderStatusEq(orderStatus));
     }
 
-    public Specifications<Order> toSpecification2() {
+    public Specifications<Order> withSearchField() {
         return where(searchLike(searchField, searchValue))
                 .and(orderStatusEq(orderStatus));
     }
